@@ -2,10 +2,12 @@ const mongoose = require("mongoose")
 
 const PurchaseDetailSchema = new mongoose.Schema({
     pur_id: {
-        type: String
+        type: String,
+        required: true
     },
     pro_id: {
-        type: String
+        type: String,
+        required: true
     }
 }, {timestamps: true})
 

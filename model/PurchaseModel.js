@@ -8,7 +8,8 @@ const PurchaseSchema = new mongoose.Schema({
         type: Number
     },
     p_date: {
-        default: Date()
+        type: Date,
+        default: Date.now
     },
     remark: {
         type: String

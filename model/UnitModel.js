@@ -3,7 +3,8 @@ const mongoose = require("mongoose")
 const UnitSchema = new mongoose.Schema({
     unit_name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     remark: {
         type: String

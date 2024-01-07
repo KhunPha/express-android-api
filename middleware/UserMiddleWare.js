@@ -7,7 +7,7 @@ function verifyToken(req, res, next) {
             message: "Unauthorization"
         })
     }
-    jwt.verify(token, process.env.JWT_KEY, (err, decode) => {
+    jwt.verify(token, process.env.JWT_KEY, (err, rows) => {
         if(err){
             return res.status(402).json({
                 message: "Unauthorization"
