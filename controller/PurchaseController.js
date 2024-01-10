@@ -25,7 +25,7 @@ const PurchaseController = {
         } catch (error) {
             res.status(402).json({
                 error: true,
-                message: error
+                message: error.message
             })
         }
     },
@@ -37,7 +37,7 @@ const PurchaseController = {
         } catch (error) {
             res.status(402).json({
                 error: true,
-                message: error
+                message: error.message
             })
         }
     },
@@ -45,14 +45,14 @@ const PurchaseController = {
         try {
             const {id} = req.params
 
-            await Purchase.findOneAndDelete(id)
+            await Purchase.findByIdAndDelete(id)
             res.status(201).json({
                 message: "Delete Successfully"
             })
         } catch (error) {
             res.status(402).json({
                 error: true,
-                message: error
+                message: error.message
             })
         }
     },
@@ -66,14 +66,14 @@ const PurchaseController = {
             } = req.body
             const $updateDoc = {$set: {supplier_id: supplier_id, priority: priority, remark: remark}}
 
-            await Purchase.findOneAndUpdate({_id: id}, $updateDoc)
+            await Purchase.findByIdAndUpdate(id, $updateDoc)
             res.status(201).json({
                 message: "Update Successfully"
             })
         } catch (error) {
             res.status(402).json({
                 error: true,
-                message: error
+                message: error.message
             })
         }
     }

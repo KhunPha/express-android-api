@@ -21,7 +21,7 @@ const Suppliercontroller = {
         } catch (error) {
             res.status(402).json({
                 error: true,
-                message: error
+                message: error.message
             })
         }
     },
@@ -33,7 +33,7 @@ const Suppliercontroller = {
         } catch (error) {
             res.status(402).json({
                 error: true,
-                message: error
+                message: error.message
             })
         }
     },
@@ -41,14 +41,14 @@ const Suppliercontroller = {
         try {
             const {id} = req.params
 
-            await Supplier.findOneAndDelete(id)
+            await Supplier.findByIdAndDelete(id)
             res.status(201).json({
                 message: "Delete Successfully"
             })
         } catch (error) {
             res.status(402).json({
                 error: true,
-                message: error
+                message: error.message
             })
         }
     },
@@ -61,14 +61,14 @@ const Suppliercontroller = {
             } = req.body
             const $updateDoc = {$set: {supplier_name: supplier_name, address: address}}
 
-            await Supplier.findOneAndUpdate({_id: id}, $updateDoc)
+            await Supplier.findByIdAndUpdate(id, $updateDoc)
             res.status(201).json({
                 message: "Update Successfully"
             })
         } catch (error) {
             res.status(402).json({
                 error: true,
-                message: error
+                message: error.message
             })
         }
     }

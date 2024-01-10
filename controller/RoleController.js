@@ -16,7 +16,7 @@ const RoleController = {
         } catch (error) {
             res.status(402).json({
                 error: true,
-                message: error
+                message: error.message
             })
         }
     },
@@ -30,7 +30,7 @@ const RoleController = {
         } catch (error) {
             res.status(201).json({
                 error: true,
-                message: error
+                message: error.message
             })
         } 
     },
@@ -43,7 +43,7 @@ const RoleController = {
 
             const $updateDoc = {$set: {role_name: role_name}}
 
-            await Role.findOneAndUpdate({_id: id}, $updateDoc)
+            await Role.findByIdAndUpdate(id, $updateDoc)
 
             res.status(201).json({
                 message: "Update Successfully"
@@ -51,7 +51,7 @@ const RoleController = {
         } catch (error) {
            res.status(402).json({
             error: true,
-            message: error
+            message: error.message
            }) 
         }
     },
@@ -59,7 +59,7 @@ const RoleController = {
         try {
             const {id} = req.params
 
-            await Role.findOneAndDelete(id)
+            await Role.findByIdAndDelete(id)
 
             res.status(201).json({
                 message: "Delete Successfully"
@@ -67,7 +67,7 @@ const RoleController = {
         } catch (error) {
             res.status(402).json({
                 error: true,
-                message: error
+                message: error.message
             })
         }
     }

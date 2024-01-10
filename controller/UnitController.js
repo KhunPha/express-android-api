@@ -22,7 +22,7 @@ const UnitController = {
         } catch (error) {
             res.status(402).json({
                 error: true,
-                message: error
+                message: error.message
             })
         }
     },
@@ -36,7 +36,7 @@ const UnitController = {
         } catch (error) {
             res.status(402).json({
                 error: true,
-                message: error
+                message: error.message
             })
         }
     },
@@ -52,7 +52,7 @@ const UnitController = {
         } catch (error) {
             res.status(402).json({
                 error: true,
-                message: error
+                message: error.message
             })
         }
     },
@@ -74,7 +74,7 @@ const UnitController = {
         } catch (error) {
             res.status(402).json({
                 error: true,
-                message: error
+                message: error.message
             })
         }
     }

@@ -33,7 +33,7 @@ const PurchaseDetailController = {
         } catch (error) {
             res.status(402).json({
                 error: true,
-                message: error
+                message: error.message
             })
         }
     },
@@ -41,14 +41,14 @@ const PurchaseDetailController = {
         try {
             const {id} = req.params
 
-            await PurchaseDetail.findOneAndDelete(id)
+            await PurchaseDetail.findByIdAndDelete(id)
             res.status(201).json({
                 message: "Delete Successfully"
             })
         } catch (error) {
             res.status(402).json({
                 error: true,
-                message: error
+                message: error.message
             })
         }
     },
@@ -60,14 +60,14 @@ const PurchaseDetailController = {
             } = req.body
             const $updateDoc = {$set: {pro_id: pro_id}}
 
-            await PurchaseDetail.findOneAndUpdate({_id: id}, $updateDoc)
+            await PurchaseDetail.findByIdAndUpdate(id, $updateDoc)
             res.status(201).json({
                 message: "Update Successfully"
             })
         } catch (error) {
             res.status(402).json({
                 error: true,
-                message: error
+                message: error.message
             })
         }
     }

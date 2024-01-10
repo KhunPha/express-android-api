@@ -21,7 +21,7 @@ const CategoryController = {
         } catch (error) {
             res.status(402).json({
                 error: true,
-                message: error
+                message: error.message
             })
         }
     },
@@ -33,7 +33,7 @@ const CategoryController = {
         } catch (error) {
             res.status(402).json({
                 error: true,
-                message: error
+                message: error.message
             })
         }
     },
@@ -41,14 +41,14 @@ const CategoryController = {
         try {
             const {id} = req.params
 
-            await Category.findOneAndDelete(id)
+            await Category.findByIdAndDelete(id)
             res.status(201).json({
                 message: "Delete Successfully"
             })
         } catch (error) {
             res.status(402).json({
                 error: true,
-                message: error
+                message: error.message
             })
         }
     },
@@ -61,14 +61,14 @@ const CategoryController = {
             } = req.body
             const $updateDoc = {$set: {cate_name: cate_name, remark: remark}}
 
-            await Category.findOneAndUpdate({_id: id}, $updateDoc)
+            await Category.findByIdAndUpdate(id, $updateDoc)
             res.status(201).json({
                 message: "Update Successfully"
             })
         } catch (error) {
             res.status(402).json({
                 error: true,
-                message: error
+                message: error.message
             })
         }
     }

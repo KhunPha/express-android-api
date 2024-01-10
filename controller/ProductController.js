@@ -29,7 +29,7 @@ const ProductController = {
         } catch (error) {
             res.status(402).json({
                 error: true,
-                message: error
+                message: error.message
             })
         }
     },
@@ -41,7 +41,7 @@ const ProductController = {
         } catch (error) {
             res.status(402).json({
                 error: true,
-                message: error
+                message: error.message
             })
         }
     },
@@ -49,14 +49,14 @@ const ProductController = {
         try {
             const {id} = req.params
 
-            await Product.findOneAndDelete(id)
+            await Product.findByIdAndDelete(id)
             res.status(201).json({
                 message: "Delete Successfully"
             })
         } catch (error) {
             res.status(402).json({
                 error: true,
-                message: error
+                message: error.message
             })
         }
     },
@@ -73,14 +73,14 @@ const ProductController = {
             } = req.body
             const $updateDoc = {$set: {pro_name: pro_name, qty: qty, price: price, cate_id: cate_id, unit_id: unit_id, remark: remark}}
 
-            await Product.findOneAndUpdate({_id: id}, $updateDoc)
+            await Product.findByIdAndUpdate(id, $updateDoc)
             res.status(201).json({
                 message: "Update Successfully"
             })
         } catch (error) {
             res.status(402).json({
                 error: true,
-                message: error
+                message: error.message
             })
         }
     }

@@ -14,12 +14,6 @@ const Category = require("./routes/CategoryRoute")
 dotenv.config()
 require("./connection")
 
-app.use("/", (req, res)=>{
-    res.json({
-        message: "Home Directory"
-    })
-})
-
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(cors())
