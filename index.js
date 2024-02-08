@@ -12,7 +12,7 @@ const PurchaseDetail = require("./routes/PurchaseDetailRoute");
 const Product = require("./routes/ProductRoute");
 const Category = require("./routes/CategoryRoute");
 
-const User = require("../model/UserModel");
+const User = require("./model/UserModel");
 
 dotenv.config();
 require("./connection");
