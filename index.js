@@ -12,7 +12,7 @@ const PurchaseDetail = require("./routes/PurchaseDetailRoute");
 const Product = require("./routes/ProductRoute");
 const Category = require("./routes/CategoryRoute");
 
-const User = require("./model/UserModel");
+const UserSchema = require("./model/UserModel");
 
 dotenv.config();
 require("./connection");
@@ -30,7 +30,7 @@ app.use("/", (req, res) => {
 app.use("/user/getusers", async (req, res) => {
   try {
     const { id } = req.params;
-    const getUsers = await User.aggregate([
+    const getUsers = await UserSchema.aggregate([
       {
         $lookup:
         {
