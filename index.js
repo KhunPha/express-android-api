@@ -27,19 +27,18 @@ app.use("/", (req, res) => {
   });
 });
 
-app.use("/user/getusers", async (req, res) => {
+app.get("/user/getusers", async (req, res) => {
   try {
     const { id } = req.params;
     const getUsers = await UserSchema.aggregate([
       {
-        $lookup:
-        {
+        $lookup: {
           from: "roles",
           localField: "role_id",
           foreignField: "_id",
-          as: "user_role"
-        }
-      }
+          as: "user_role",
+        },
+      },
     ]);
 
     res.status(201).json({
@@ -53,7 +52,7 @@ app.use("/user/getusers", async (req, res) => {
       message: error.message,
     });
   }
-})
+});
 
 app.use("/user", User);
 app.use("/role", Role);
