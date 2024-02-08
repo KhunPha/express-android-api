@@ -1,3 +1,5 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(
+  "mongodb+srv://sophaederson:sopha3305@cluster0.wwwjbbv.mongodb.net/inventory?retryWrites=true&w=majority"
+);
