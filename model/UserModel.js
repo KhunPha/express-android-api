@@ -23,12 +23,10 @@ const UserSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
-    role_id: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Roles",
-      },
-    ],
+    role_id: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Roles",
+    }],
   },
   { timestamps: true }
 );

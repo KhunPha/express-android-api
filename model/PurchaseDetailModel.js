@@ -6,8 +6,17 @@ const PurchaseDetailSchema = new mongoose.Schema({
         required: true
     },
     pro_id: {
-        type: String,
-        required: true
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Products"
+    },
+    qty: {
+        type: Number
+    },
+    price: {
+        type: Number
+    },
+    amound: {
+        type: Number
     }
 }, {timestamps: true})
 

@@ -5,12 +5,16 @@ const Suppliercontroller = {
         try {
             const {
                 supplier_name,
-                address
+                address,
+                contact,
+                remark
             } = req.body
 
             const newSupplier = new Supplier({
                 supplier_name,
-                address
+                address,
+                contact,
+                remark
             })
 
             await newSupplier.save()
@@ -57,9 +61,11 @@ const Suppliercontroller = {
             const {id} = req.params
             const {
                 supplier_name,
-                address
+                address,
+                contact,
+                remark
             } = req.body
-            const $updateDoc = {$set: {supplier_name: supplier_name, address: address}}
+            const $updateDoc = {$set: {supplier_name: supplier_name, address: address, contact: contact, remark: remark}}
 
             await Supplier.findByIdAndUpdate(id, $updateDoc)
             res.status(201).json({

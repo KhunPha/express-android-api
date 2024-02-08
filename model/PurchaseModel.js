@@ -2,7 +2,8 @@ const mongoose = require("mongoose")
 
 const PurchaseSchema = new mongoose.Schema({
     supplier_id: {
-        type: String,
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Suppliers"
     },
     priority: {
         type: Number

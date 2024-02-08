@@ -1,11 +1,12 @@
 const User = require("../model/UserModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const Role = require("../model/RoleModel")
 
 const UserController = {
   register: async (req, res) => {
     try {
-      const { first_name, last_name, username, password, img_path, role_id } =
+      const { first_name, last_name, username, password, role_id, img_path } =
         req.body;
 
       const salt = await bcrypt.genSalt();
@@ -16,14 +17,14 @@ const UserController = {
         last_name,
         username,
         password: hashPassword,
-        img_path,
         role_id,
+        img_path,
       });
 
       await newUser.save();
 
       res.status(201).json({
-        message: "Register Successfully",
+        message: "Create Successfully",
         status: true,
       });
     } catch (error) {
@@ -35,11 +36,23 @@ const UserController = {
   },
   getUser: async (req, res) => {
     try {
-      const getUsers = await User.find().populate("role_id");
+      const { id } = req.params;
+      const getUsers = await User.aggregate([
+        {
+          $lookup:
+          {
+            from: "roles",
+            localField: "role_id",
+            foreignField: "_id",
+            as: "user_role"
+          }
+        }
+      ]);
 
       res.status(201).json({
+        id: id,
         data: getUsers,
-        status: true
+        status: true,
       });
     } catch (error) {
       res.status(402).json({
@@ -73,8 +86,10 @@ const UserController = {
         firstname: user.first_name,
         lastname: user.last_name,
         username: user.username,
+        password: user.password,
+        role_id: user.role_id,
         token: token,
-        status: true
+        status: true,
       });
     } catch (error) {
       res.status(402).json({
@@ -90,7 +105,7 @@ const UserController = {
       const deleteUser = await User.findByIdAndDelete(id);
 
       res.status(201).json({
-        data: deleteUser
+        data: deleteUser,
       });
     } catch (error) {
       res.status(402).json({
@@ -102,27 +117,32 @@ const UserController = {
   updateUser: async (req, res) => {
     try {
       const { id } = req.params;
+      const { first_name, last_name, username, password, role_id } = req.body;
+      const user = await User.findById(id);
 
-      const { first_name, last_name, username, img_path, role_id } = req.body;
+      var hashPassword = password;
+      if (password != user.password) {
+        const salt = await bcrypt.genSalt();
+        hashPassword = await bcrypt.hash(password, salt);
+      }
 
       const docUpdate = {
         $set: {
           first_name: first_name,
           last_name: last_name,
           username: username,
-          img_path: img_path,
+          password: hashPassword,
           role_id: role_id,
         },
       };
 
-      const updateUser = await User.findByIdAndUpdate(id, docUpdate, {
+      await User.findByIdAndUpdate(id, docUpdate, {
         upsert: true,
       });
 
       res.status(201).json({
-        data: updateUser._id,
         message: "Update Successfully",
-        status: true
+        status: true,
       });
     } catch (error) {
       res.status(401).json({

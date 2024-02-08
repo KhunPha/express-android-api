@@ -5,12 +5,18 @@ const PurchaseDetailController = {
         try {
             const {
                 pur_id,
-                pro_id
+                pro_id,
+                qty,
+                price,
+                amount
             } = req.body
 
             const newPurchaseDetail = new PurchaseDetail({
                 pur_id,
-                pro_id
+                pro_id,
+                qty,
+                price,
+                amount
             })
 
             await newPurchaseDetail.save()
@@ -56,9 +62,12 @@ const PurchaseDetailController = {
         try {
             const {id} = req.params
             const {
-                pro_id
+                pro_id,
+                qty,
+                price,
+                amount
             } = req.body
-            const $updateDoc = {$set: {pro_id: pro_id}}
+            const $updateDoc = {$set: {pro_id: pro_id, qty: qty, price: price, amount: amount}}
 
             await PurchaseDetail.findByIdAndUpdate(id, $updateDoc)
             res.status(201).json({

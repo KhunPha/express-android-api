@@ -23,6 +23,7 @@ const ProductController = {
 
             await newProduct.save()
             res.status(201).json({
+                status: true,
                 data: newProduct,
                 message: "Create Successfully"
             })
@@ -35,9 +36,10 @@ const ProductController = {
     },
     getProduct: async (req, res) => {
         try {
-            const getProducts = await Product.find()
-
-            res.status(201).json(getProducts)
+            const getProducts = await Product.find().sort({"createdAt": -1})
+            res.status(201).json({
+                data: getProducts
+            })
         } catch (error) {
             res.status(402).json({
                 error: true,
@@ -51,6 +53,7 @@ const ProductController = {
 
             await Product.findByIdAndDelete(id)
             res.status(201).json({
+                status: true,
                 message: "Delete Successfully"
             })
         } catch (error) {
@@ -75,6 +78,7 @@ const ProductController = {
 
             await Product.findByIdAndUpdate(id, $updateDoc)
             res.status(201).json({
+                status: true,
                 message: "Update Successfully"
             })
         } catch (error) {

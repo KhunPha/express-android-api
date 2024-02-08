@@ -12,10 +12,12 @@ const ProductSchema = new mongoose.Schema({
         type: Number
     },
     cate_id: {
-        type: String
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Categories"
     },
     unit_id: {
-        type: String
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Units"
     },
     remark: {
         type: String
